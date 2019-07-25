@@ -18,7 +18,7 @@ class ViewController: UIViewController {
             .register("IntViewCell", { [unowned self] (cell: IntViewCell, item: Int) in
                 cell.label.text = "Int: \(item)"
             })
-            .updateData(["iOS", "has","own", "slim", "adapter", 1, 2, 3])
+            .updateData(["iOS", "has", "own", "slim", "adapter", 1, 2, 3])
     }
 }
 ```
