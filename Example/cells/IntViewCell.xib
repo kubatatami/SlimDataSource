@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IntViewCell" rowHeight="83" id="tO0-oL-5YV" customClass="IntViewCell" customModule="SlimDataSource" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="486" height="83"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tO0-oL-5YV" id="SLW-aH-XXr">
+                <rect key="frame" x="0.0" y="0.0" width="486" height="82.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCs-BK-WKB">
+                        <rect key="frame" x="220" y="26.5" width="46" height="30"/>
+                        <state key="normal" title="Button"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRE-tx-mph">
+                        <rect key="frame" x="20" y="31" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aRE-tx-mph" firstAttribute="leading" secondItem="SLW-aH-XXr" secondAttribute="leading" constant="20" id="8Ur-BL-Smf"/>
+                    <constraint firstItem="aRE-tx-mph" firstAttribute="centerY" secondItem="SLW-aH-XXr" secondAttribute="centerY" id="gTD-TB-hXJ"/>
+                    <constraint firstItem="xCs-BK-WKB" firstAttribute="centerX" secondItem="SLW-aH-XXr" secondAttribute="centerX" id="hLD-nS-OEM"/>
+                    <constraint firstItem="xCs-BK-WKB" firstAttribute="centerY" secondItem="SLW-aH-XXr" secondAttribute="centerY" id="hdR-qa-OZX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="button" destination="xCs-BK-WKB" id="lDz-59-yyl"/>
+                <outlet property="label" destination="aRE-tx-mph" id="jqZ-HG-PY0"/>
+            </connections>
+            <point key="canvasLocation" x="-97.101449275362327" y="88.727678571428569"/>
+        </tableViewCell>
+    </objects>
+</document>
