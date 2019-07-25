@@ -1,5 +1,7 @@
 # SlimDataSource
 
+## Example
+
 ```swift
 class ViewController: UIViewController {
 
@@ -19,5 +21,10 @@ class ViewController: UIViewController {
             .updateData(["iOS", "has","own", "slim", "adapter", 1, 2, 3])
     }
 }
+```
 
+## Pod
+
+``` 
+pod 'SlimDataSource'
 ```
