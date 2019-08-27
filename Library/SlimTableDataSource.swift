@@ -8,57 +8,57 @@
 
 import UIKit
 
-class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+public class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     private unowned var tableView: UITableView
     private var creators : [String: CreatorProtocol] = [:]
-    
-    var data: [Any] = [] {
+
+    public var data: [Any] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    init(_ tableView: UITableView) {
+
+    public init(_ tableView: UITableView) {
         self.tableView = tableView
         super.init()
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let creator = findCreator(indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: creator.reusableIdentifier, for: indexPath)
         creator.invoke(cell, data[indexPath.row])
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let creator = findCreator(indexPath.row)
         creator.invokeCellClick(data[indexPath.row])
     }
-    
-    func register<V: UITableViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+
+    public func register<V: UITableViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
         let nib = UINib(nibName: nibName, bundle: nil)
         return register(nib, nibName, binder, onCellClick: onCellClick)
     }
-    
-    func register<V: UITableViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+
+    public func register<V: UITableViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
         let nib = UINib(nibName: reusableIdentifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: reusableIdentifier)
         creators[String(describing: T.self)] = TableCreator(reusableIdentifier, binder, onCellClick)
         return self
     }
-    
-    func updateData(_ data: [Any]) -> Self {
+
+    public func updateData(_ data: [Any]) -> Self {
         self.data = data
         return self
     }
@@ -70,7 +70,7 @@ class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-class TableCreator<V: UITableViewCell, T>: CreatorProtocol {
+private class TableCreator<V: UITableViewCell, T>: CreatorProtocol {
     var reusableIdentifier: String
     var binder: (V, T) -> Void
     var onCellClick: (T) -> Void
