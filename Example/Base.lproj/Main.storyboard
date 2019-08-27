@@ -19,25 +19,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tUw-a5-WrI">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ijx-ZO-n1j">
+                                <rect key="frame" x="0.0" y="492" width="414" height="370"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Z1y-CM-5a2">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Ijx-ZO-n1j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2Ev-YN-QW4"/>
+                            <constraint firstItem="tUw-a5-WrI" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="EIu-HH-bGu"/>
+                            <constraint firstItem="Ijx-ZO-n1j" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="FOj-q4-rBi"/>
                             <constraint firstItem="tUw-a5-WrI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Hy5-MC-1hW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tUw-a5-WrI" secondAttribute="trailing" id="U8B-rC-I9J"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tUw-a5-WrI" secondAttribute="bottom" id="igH-oc-kbN"/>
+                            <constraint firstItem="Ijx-ZO-n1j" firstAttribute="top" secondItem="tUw-a5-WrI" secondAttribute="bottom" id="l42-jr-fVJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ijx-ZO-n1j" secondAttribute="bottom" id="mN4-NS-ova"/>
                             <constraint firstItem="tUw-a5-WrI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="sX1-e8-5ZZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="Ijx-ZO-n1j" id="REg-aj-oEO"/>
                         <outlet property="tableView" destination="tUw-a5-WrI" id="0eb-Xh-wdP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="127.90178571428571"/>
         </scene>
     </scenes>
 </document>

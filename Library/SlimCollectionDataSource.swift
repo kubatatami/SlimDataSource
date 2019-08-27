@@ -8,53 +8,49 @@
 
 import UIKit
 
-class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+class SlimCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    private unowned var tableView: UITableView
+    private unowned var collectionView: UICollectionView
     private var creators : [String: CreatorProtocol] = [:]
     
     var data: [Any] = [] {
         didSet {
-            tableView.reloadData()
+            collectionView.reloadData()
         }
     }
     
-    init(_ tableView: UITableView) {
-        self.tableView = tableView
+    init(_ collectionView: UICollectionView) {
+        self.collectionView = collectionView
         super.init()
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let creator = findCreator(indexPath.row)
-        let cell = tableView.dequeueReusableCell(withIdentifier: creator.reusableIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: creator.reusableIdentifier, for: indexPath)
         creator.invoke(cell, data[indexPath.row])
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let creator = findCreator(indexPath.row)
         creator.invokeCellClick(data[indexPath.row])
     }
     
-    func register<V: UITableViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+    func register<V: UICollectionViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
         let nib = UINib(nibName: nibName, bundle: nil)
         return register(nib, nibName, binder, onCellClick: onCellClick)
     }
     
-    func register<V: UITableViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+    func register<V: UICollectionViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
         let nib = UINib(nibName: reusableIdentifier, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: reusableIdentifier)
-        creators[String(describing: T.self)] = TableCreator(reusableIdentifier, binder, onCellClick)
+        collectionView.register(nib, forCellWithReuseIdentifier: reusableIdentifier)
+        creators[String(describing: T.self)] = CellCreator(reusableIdentifier, binder, onCellClick)
         return self
     }
     
@@ -70,7 +66,7 @@ class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
     }
 }
 
-class TableCreator<V: UITableViewCell, T>: CreatorProtocol {
+class CellCreator<V: UICollectionViewCell, T>: CreatorProtocol {
     var reusableIdentifier: String
     var binder: (V, T) -> Void
     var onCellClick: (T) -> Void
@@ -88,11 +84,4 @@ class TableCreator<V: UITableViewCell, T>: CreatorProtocol {
     func invokeCellClick(_ item: Any) {
         onCellClick(item as! T)
     }
-}
-
-protocol CreatorProtocol {
-    var reusableIdentifier: String { get }
-   
-    func invoke(_ cell: Any, _ item: Any)
-    func invokeCellClick(_ item: Any)
 }
