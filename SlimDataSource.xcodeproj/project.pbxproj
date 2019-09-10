@@ -13,6 +13,8 @@
 		6A23E4A8759E00AB8A039581 /* IntViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A23E3FDDE9F61C9D354629A /* IntViewCell.swift */; };
 		6A23E540644AE77038C2060D /* StringViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A23E008C974613E7EFFB170 /* StringViewCell.xib */; };
 		8C825E473384047429904E5F /* Pods_SlimDataSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ADB6CF386DC2477FC8427A0 /* Pods_SlimDataSource.framework */; };
+		A8A4278A46A77ADBF6C0F5A0 /* SlimTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A42F2F1FCE1DF4081D99DB /* SlimTableDelegate.swift */; };
+		A8A4291F17F7F2D5C349A74B /* SlimCollectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A422510455D25DAB360C6D /* SlimCollectionDelegate.swift */; };
 		D45DF25C22E9AB0700FDAF70 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DF25B22E9AB0700FDAF70 /* AppDelegate.swift */; };
 		D45DF25E22E9AB0700FDAF70 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45DF25D22E9AB0700FDAF70 /* ViewController.swift */; };
 		D45DF26122E9AB0700FDAF70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45DF25F22E9AB0700FDAF70 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		6A23EB956EE976E726EA8FF1 /* SlimCollectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimCollectionDataSource.swift; sourceTree = "<group>"; };
 		6A23EC498B0223CD306C058B /* StringViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringViewCell.swift; sourceTree = "<group>"; };
 		6ADB6CF386DC2477FC8427A0 /* Pods_SlimDataSource.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SlimDataSource.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8A422510455D25DAB360C6D /* SlimCollectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimCollectionDelegate.swift; sourceTree = "<group>"; };
+		A8A42F2F1FCE1DF4081D99DB /* SlimTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlimTableDelegate.swift; sourceTree = "<group>"; };
 		BD0163C0B25AED44BA9C7FE1 /* Pods-SlimDataSource.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlimDataSource.debug.xcconfig"; path = "Target Support Files/Pods-SlimDataSource/Pods-SlimDataSource.debug.xcconfig"; sourceTree = "<group>"; };
 		D45DF25822E9AB0700FDAF70 /* SlimDataSource.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlimDataSource.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45DF25B22E9AB0700FDAF70 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 			children = (
 				D45DF26D22E9AB7B00FDAF70 /* SlimTableDataSource.swift */,
 				6A23EB956EE976E726EA8FF1 /* SlimCollectionDataSource.swift */,
+				A8A42F2F1FCE1DF4081D99DB /* SlimTableDelegate.swift */,
+				A8A422510455D25DAB360C6D /* SlimCollectionDelegate.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 				D461E2F22315A6F200FC5543 /* StringCollectionViewCell.swift in Sources */,
 				6A23E1BC342FCB0A57AC080C /* StringViewCell.swift in Sources */,
 				6A23E4A8759E00AB8A039581 /* IntViewCell.swift in Sources */,
+				A8A4278A46A77ADBF6C0F5A0 /* SlimTableDelegate.swift in Sources */,
+				A8A4291F17F7F2D5C349A74B /* SlimCollectionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

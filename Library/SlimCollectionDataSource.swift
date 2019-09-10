@@ -8,11 +8,10 @@
 
 import UIKit
 
-public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource {
+
     private unowned var collectionView: UICollectionView
     private var creators : [String: CreatorProtocol] = [:]
-
     public var data: [Any] = [] {
         didSet {
             collectionView.reloadData()
@@ -23,7 +22,6 @@ public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource, UIC
         self.collectionView = collectionView
         super.init()
         self.collectionView.dataSource = self
-        self.collectionView.delegate = self
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -37,51 +35,43 @@ public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource, UIC
         return cell
     }
 
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let creator = findCreator(indexPath.row)
-        creator.invokeCellClick(data[indexPath.row])
-    }
-
-    public func register<V: UICollectionViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+    @discardableResult
+    public func register<V: UICollectionViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void) -> Self {
         let nib = UINib(nibName: nibName, bundle: nil)
-        return register(nib, nibName, binder, onCellClick: onCellClick)
+        return register(nib, nibName, binder)
     }
 
-    public func register<V: UICollectionViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
-        let nib = UINib(nibName: reusableIdentifier, bundle: nil)
+    @discardableResult
+    public func register<V: UICollectionViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void) -> Self {
         collectionView.register(nib, forCellWithReuseIdentifier: reusableIdentifier)
-        creators[String(describing: T.self)] = CellCreator(reusableIdentifier, binder, onCellClick)
+        creators[String(describing: T.self)] = CellCreator(reusableIdentifier, binder)
         return self
     }
 
+    @discardableResult
     public func updateData(_ data: [Any]) -> Self {
         self.data = data
         return self
     }
-    
-    private func findCreator(_ row: Int) -> CreatorProtocol {
+
+    func findCreator(_ row: Int) -> CreatorProtocol {
         let item = data[row]
         let itemType = type(of: item)
         return creators[String(describing: itemType)]!
     }
+
 }
 
 private class CellCreator<V: UICollectionViewCell, T>: CreatorProtocol {
     var reusableIdentifier: String
     var binder: (V, T) -> Void
-    var onCellClick: (T) -> Void
-    
-    init(_ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, _ onCellClick: @escaping (T) -> Void) {
+
+    init(_ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void) {
         self.reusableIdentifier = reusableIdentifier
         self.binder = binder
-        self.onCellClick = onCellClick
     }
-    
+
     func invoke(_ cell: Any, _ item: Any) {
         binder(cell as! V, item as! T)
-    }
-    
-    func invokeCellClick(_ item: Any) {
-        onCellClick(item as! T)
     }
 }
