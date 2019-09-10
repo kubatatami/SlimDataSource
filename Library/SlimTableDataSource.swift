@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
+public class SlimTableDataSource: NSObject, UITableViewDataSource {
+
     private unowned var tableView: UITableView
     private var creators : [String: CreatorProtocol] = [:]
 
@@ -23,7 +23,6 @@ public class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDe
         self.tableView = tableView
         super.init()
         self.tableView.dataSource = self
-        self.tableView.delegate = self
     }
 
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,28 +40,25 @@ public class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDe
         return cell
     }
 
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let creator = findCreator(indexPath.row)
-        creator.invokeCellClick(data[indexPath.row])
-    }
-
-    public func register<V: UITableViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
+    @discardableResult
+    public func register<V: UITableViewCell, T> (_ nibName: String, _ binder: @escaping (V, T) -> Void) -> Self {
         let nib = UINib(nibName: nibName, bundle: nil)
-        return register(nib, nibName, binder, onCellClick: onCellClick)
+        return register(nib, nibName, binder)
     }
 
-    public func register<V: UITableViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, onCellClick: @escaping (T) -> Void = {_ in }) -> Self {
-        let nib = UINib(nibName: reusableIdentifier, bundle: nil)
+    @discardableResult
+    public func register<V: UITableViewCell, T> (_ nib: UINib, _ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void) -> Self {
         tableView.register(nib, forCellReuseIdentifier: reusableIdentifier)
-        creators[String(describing: T.self)] = TableCreator(reusableIdentifier, binder, onCellClick)
+        creators[String(describing: T.self)] = TableCreator(reusableIdentifier, binder)
         return self
     }
 
+    @discardableResult
     public func updateData(_ data: [Any]) -> Self {
         self.data = data
         return self
     }
-    
+
     private func findCreator(_ row: Int) -> CreatorProtocol {
         let item = data[row]
         let itemType = type(of: item)
@@ -73,26 +69,18 @@ public class SlimTableDataSource: NSObject, UITableViewDataSource, UITableViewDe
 private class TableCreator<V: UITableViewCell, T>: CreatorProtocol {
     var reusableIdentifier: String
     var binder: (V, T) -> Void
-    var onCellClick: (T) -> Void
-    
-    init(_ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void, _ onCellClick: @escaping (T) -> Void) {
+
+    init(_ reusableIdentifier: String, _ binder: @escaping (V, T) -> Void) {
         self.reusableIdentifier = reusableIdentifier
         self.binder = binder
-        self.onCellClick = onCellClick
     }
-    
+
     func invoke(_ cell: Any, _ item: Any) {
         binder(cell as! V, item as! T)
-    }
-    
-    func invokeCellClick(_ item: Any) {
-        onCellClick(item as! T)
     }
 }
 
 protocol CreatorProtocol {
     var reusableIdentifier: String { get }
-   
     func invoke(_ cell: Any, _ item: Any)
-    func invokeCellClick(_ item: Any)
 }
