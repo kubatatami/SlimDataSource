@@ -4,7 +4,7 @@
 //
 import UIKit
 
-public class SlimTableDelegate: NSObject, UITableViewDelegate {
+open class SlimTableDelegate: NSObject, UITableViewDelegate {
 
     private let slimTableDataSource: SlimTableDataSource
     private var waiting = false
@@ -18,13 +18,13 @@ public class SlimTableDelegate: NSObject, UITableViewDelegate {
         tableView.delegate = self
     }
 
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = slimTableDataSource.data[indexPath.row]
         let itemType = type(of: item)
         return onClickActions[String(describing: itemType)]!.invokeCellClick(item)
     }
 
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == slimTableDataSource.data.count - 1 && !waiting  && hasMorePage {
             waiting = true
             onNextPageLoad?()

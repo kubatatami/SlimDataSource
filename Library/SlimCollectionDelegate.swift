@@ -5,7 +5,7 @@
 
 import UIKit
 
-public class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
+open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
 
     private let slimCollectionDataSource: SlimCollectionDataSource
     private var waiting = false
@@ -19,13 +19,13 @@ public class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
         collectionView.delegate = self
     }
 
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = slimCollectionDataSource.data[indexPath.row]
         let itemType = type(of: item)
         return onClickActions[String(describing: itemType)]!.invokeCellClick(item)
     }
 
-    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == slimCollectionDataSource.data.count - 1 && !waiting  && hasMorePage {
             waiting = true
             onNextPageLoad?()
