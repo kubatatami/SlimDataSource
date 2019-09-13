@@ -21,7 +21,11 @@ open class SlimTableDelegate: NSObject, UITableViewDelegate {
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = slimTableDataSource.data[indexPath.row]
         let itemType = type(of: item)
-        return onClickActions[String(describing: itemType)]!.invokeCellClick(item)
+        if let action = onClickActions[String(describing: itemType)] {
+            action.invokeCellClick(item)
+        } else {
+            print("Type \(String(describing: itemType)) is not registered")
+        }
     }
 
     open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
