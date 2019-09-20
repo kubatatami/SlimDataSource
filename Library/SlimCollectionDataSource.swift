@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource {
+open class SlimCollectionDataSource: NSObject, UICollectionViewDataSource {
 
     private unowned var collectionView: UICollectionView
     private var creators: [String: CreatorProtocol] = [:]
@@ -24,11 +24,11 @@ public class SlimCollectionDataSource: NSObject, UICollectionViewDataSource {
         self.collectionView.dataSource = self
     }
 
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let creator = findCreator(indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: creator.reusableIdentifier, for: indexPath)
         creator.invoke(cell, data[indexPath.row], indexPath.row)
