@@ -8,7 +8,7 @@ import UIKit
 open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
 
     private let slimCollectionDataSource: SlimCollectionDataSource
-    private var waiting = false
+    private var waiting = true
     private var hasMorePage = true
     private var onNextPageLoad: (()->())?
     private var onClickActions: [String: OnClickProtocol] = [:]

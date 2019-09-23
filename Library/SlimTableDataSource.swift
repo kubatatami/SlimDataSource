@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class SlimTableDataSource: NSObject, UITableViewDataSource {
+open class SlimTableDataSource: NSObject, UITableViewDataSource {
 
     private unowned var tableView: UITableView
     private var creators: [String: CreatorProtocol] = [:]
@@ -25,15 +25,15 @@ public class SlimTableDataSource: NSObject, UITableViewDataSource {
         self.tableView.dataSource = self
     }
 
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let creator = findCreator(indexPath.row)
         let cell = tableView.dequeueReusableCell(withIdentifier: creator.reusableIdentifier, for: indexPath)
         creator.invoke(cell, data[indexPath.row], indexPath.row)

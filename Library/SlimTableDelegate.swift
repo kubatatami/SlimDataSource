@@ -7,7 +7,7 @@ import UIKit
 open class SlimTableDelegate: NSObject, UITableViewDelegate {
 
     private let slimTableDataSource: SlimTableDataSource
-    private var waiting = false
+    private var waiting = true
     private var hasMorePage = true
     private var onNextPageLoad: (()->())?
     private var onClickActions: [String: OnClickProtocol] = [:]
