@@ -8,7 +8,7 @@ open class SlimTableDelegate: NSObject, UITableViewDelegate {
 
     private let slimTableDataSource: SlimTableDataSource
     private var waiting = true
-    private var hasMorePage = true
+    private var hasMorePages = true
     private var onNextPageLoad: (()->())?
     private var onClickActions: [String: OnClickProtocol] = [:]
 
@@ -29,7 +29,7 @@ open class SlimTableDelegate: NSObject, UITableViewDelegate {
     }
 
     open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == slimTableDataSource.data.count - 1 && !waiting  && hasMorePage {
+        if indexPath.row == slimTableDataSource.data.count - 1 && !waiting  && hasMorePages {
             waiting = true
             onNextPageLoad?()
         }
@@ -45,8 +45,8 @@ open class SlimTableDelegate: NSObject, UITableViewDelegate {
         waiting = false
     }
 
-    public func allPagesDownloaded() {
-        hasMorePage = false
+    public func hasMorePages(_ isMore: Bool) {
+        hasMorePages = isMore
     }
 
     public func onNextPageLoad(_ action: @escaping ()->()) -> Self {

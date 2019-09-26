@@ -9,7 +9,7 @@ open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
 
     private let slimCollectionDataSource: SlimCollectionDataSource
     private var waiting = true
-    private var hasMorePage = true
+    private var hasMorePages = true
     private var onNextPageLoad: (()->())?
     private var onClickActions: [String: OnClickProtocol] = [:]
 
@@ -30,7 +30,7 @@ open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
     }
 
     open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == slimCollectionDataSource.data.count - 1 && !waiting  && hasMorePage {
+        if indexPath.row == slimCollectionDataSource.data.count - 1 && !waiting  && hasMorePages {
             waiting = true
             onNextPageLoad?()
         }
@@ -46,8 +46,8 @@ open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
         waiting = false
     }
 
-    public func allPagesDownloaded() {
-        hasMorePage = false
+    public func hasMorePages(_ isMore: Bool) {
+        hasMorePages = isMore
     }
 
     public func onNextPageLoad(_ action: @escaping ()->()) -> Self {
