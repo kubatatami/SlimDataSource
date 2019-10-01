@@ -50,6 +50,10 @@ open class SlimCollectionDelegate: NSObject, UICollectionViewDelegate {
         hasMorePages = isMore
     }
 
+    public func manualRefreshing() {
+        waiting = true
+    }
+
     public func onNextPageLoad(_ action: @escaping ()->()) -> Self {
         onNextPageLoad = action
         return self

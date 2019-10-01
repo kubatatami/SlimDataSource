@@ -49,6 +49,10 @@ open class SlimTableDelegate: NSObject, UITableViewDelegate {
         hasMorePages = isMore
     }
 
+    public func manualRefreshing() {
+        waiting = true
+    }
+
     public func onNextPageLoad(_ action: @escaping ()->()) -> Self {
         onNextPageLoad = action
         return self
